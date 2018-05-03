@@ -1,0 +1,32 @@
+// Changing this will prevent grid size classes from being generated!
+/// @access private
+$_gridGeneratedOffset: false !default;
+/// @access private
+$_gridGeneratedOffsetList: () !default;
+
+/// Generates fractional, breakpoint based classes containing margin offset.
+@mixin generateGridOffset(
+  $breakpoints: $gridBreakpoints,
+  $classBase: map_get($gridClassBases, offset),
+  $denominators: $gridDenominators,
+  $ignoreGenerated: false
+) {
+  @if (not $_gridGeneratedOffset or $ignoreGenerated or null == index($_gridGeneratedOffsetList, $classBase)) {
+    $_gridGeneratedOffset: true !global;
+    $_gridGeneratedOffsetList: append($_gridGeneratedOffsetList, $classBase) !global;
+
+    @each $breakpoint in $breakpoints {
+      $bp: if(isNull($breakpoint), '', \@#{$breakpoint});
+
+      @include conditionalMq($breakpoint) {
+        @each $a in $denominators {
+          @for $b from 1 through $a {
+            .#{$classBase}-#{$b}\/#{$a}#{$bp} {
+              margin-left: ($b/$a) * 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

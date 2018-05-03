@@ -1,0 +1,49 @@
+/// Helper mixin to generate correct gutter sizing.
+/// @access private
+@mixin _gridGutterValue(
+  $value,
+  $properties,
+  $negativeValue: false
+) {
+  @if ($negativeValue) {
+    $value: $value * -1;
+  }
+  @each $property in $properties {
+    #{$property}: rem-calc($value / 2);
+  }
+}
+
+/// Helper mixin to generate correct gutter sizing.
+/// @access private
+@mixin _gridGutterGenerator(
+  $gutter: $gridGutter,
+  $properties: (padding-left, padding-right),
+  $negativeValue: false
+) {
+  @if (isMap($gutter)) {
+    @each $breakpoint, $value in $gutter {
+      @include conditionalMq($breakpoint) {
+        @include _gridGutterValue($value, $properties, $negativeValue);
+      }
+    }
+  } @else if (isNumber($gutter)) {
+    @include _gridGutterValue($gutter, $properties, $negativeValue);
+  } @else {
+    @error "Invalid value for `$gutter`! Expected a number or a map, found '#{$gutter}'"
+  }
+}
+
+/// Pass a list of properties to generate grid gutter for
+@mixin gridGutter($properties...) {
+  @include _gridGutterGenerator(
+    $properties: $properties
+  );
+}
+
+/// Pass a list of properties to generate negative grid gutter for
+@mixin gridGutterNegative($properties...) {
+  @include _gridGutterGenerator(
+    $properties: $properties,
+    $negativeValue: true
+  );
+}

@@ -1,0 +1,20 @@
+@function isMap($value) {
+  @return type_of($value) == 'map';
+}
+
+@function isNull($value) {
+  @return $value == null;
+}
+
+@function isNumber($value) {
+  @return type_of($value) == 'number';
+}
+
+@function capitalize($string) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+
+// Alias
+@function strUcfirst($string) {
+  @return capitalize($string);
+}

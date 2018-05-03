@@ -1,0 +1,3 @@
+@mixin background-image($asset) {
+  background-image: url('#{$imagePath}#{$asset}');
+}

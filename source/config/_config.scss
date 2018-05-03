@@ -1,0 +1,10 @@
+/// Controls IE 11 specific fixes.
+$supportIE: true !default;
+
+@import "variables";
+@import "assetPaths";
+@import "breakpoints";
+@import "colors";
+@import "choices";
+@import "grid";
+@import "typography";

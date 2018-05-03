@@ -1,0 +1,35 @@
+// Ensure our config values exist
+@import "default-config";
+// Get our base grid functions.
+@import "functions";
+// Load gutters, offset, order, and sizes.
+@import "helpers/gutter";
+@import "helpers/offset";
+@import "helpers/order";
+@import "helpers/sizes";
+// Load row and column mixins.
+@import "parts/row";
+@import "parts/column";
+// Load our main grid generation mixin.
+@import "parts/grid";
+
+// Generate our standard grid, if enabled.
+@if ($gridGenerateClasses) {
+  @include gridGenerate();
+
+  .#{map_get($gridClassBases, 'grid')} {
+    // Allow a full-width grid.
+    &--full-width {
+      max-width: 100%;
+    }
+  }
+}
+
+@import "custom-grids";
+
+@if ($gridGenerateClasses) {
+  @include gridGenerate(
+    $generateMain: false,
+    $generateHelpers: true
+  );
+}

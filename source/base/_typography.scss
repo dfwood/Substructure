@@ -1,0 +1,33 @@
+// Include or import our @font-face declarations here.
+
+// Set body font.
+body {
+  color: $bodyFontColor;
+  font-family: $body-font-face;
+  font-size: $sizeBody;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Set heading font.
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font-face;
+}
+
+// Text alignment helper classes.
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}

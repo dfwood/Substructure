@@ -1,0 +1,3 @@
+@mixin background-svg($asset) {
+  background-image: url('#{$svgPath}#{$asset}');
+}

@@ -1,0 +1,22 @@
+// Define our breakpoints, numbers are the smallest value of the breakpoint.
+$bp-xs: 480px;
+$bp-sm: 768px;
+$bp-md: 980px;
+$bp-lg: 1100px;
+$bp-xl: 1440px;
+
+// Define media type.
+$mq-media-type: 'screen'; // TODO: Does this need to be here? Does it break print styles?
+
+// Create a map of our breakpoint names and values, used for media query generation.
+$mq-breakpoints: (
+  null: 0px, // Used internally only. Do not use for front-end styling!
+  xs: $bp-xs,
+  sm: $bp-sm,
+  md: $bp-md,
+  lg: $bp-lg,
+  xl: $bp-xl,
+);
+
+// Displays the current breakpoint name and size on screen, to be used during development only!
+// $mq-show-breakpoints: (null, xs, sm, md, lg, xl);

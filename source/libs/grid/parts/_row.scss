@@ -1,0 +1,55 @@
+/// Generates styles for a grid row.
+@mixin gridRow(
+  $direction: row,
+  $wrap: wrap,
+  $alignContent: stretch,
+  $alignItems: stretch,
+  $justifyContent: flex-start,
+  $gutter: $gridGutter, // Map or number
+  $gutterProperties: margin-left margin-right, // List
+  $includeGutter: true,
+  $negativeGutter: true
+) {
+  @if ($alignContent != stretch) {
+    @if (null == index((flex-start, flex-end, center, space-between, space-around, stretch), $alignContent)) {
+      @warn "Possibly invalid value passed to `gridRow()` for `$alignContent`: '#{$alignContent}'";
+    }
+    align-content: $alignContent;
+  }
+
+  @if ($alignItems != stretch) {
+    @if (null == index((flex-start, flex-end, center, baseline, stretch), $alignItems)) {
+      @warn "Possibly invalid value passed to `gridRow()` for `$alignItems`: '#{$alignItems}'";
+    }
+    align-items: $alignItems;
+  }
+
+  display: flex;
+
+  @if ($direction != row) {
+    @if (null == index((row, row-reverse, column, column-reverse), $direction)) {
+      @warn "Possibly invalid value passed to `gridRow()` for `$direction`: '#{$direction}'";
+    }
+    flex-direction: $direction;
+  }
+
+  @if (null == index((nowrap, wrap, wrap-reverse), $wrap)) {
+    @warn "Possibly invalid value passed to `gridRow()` for `$wrap`: '#{$wrap}'";
+  }
+  flex-wrap: $wrap;
+
+  @if ($justifyContent != flex-start) {
+    @if (null == index((flex-start, flex-end, center, space-between, space-around, space-evenly), $justifyContent)) {
+      @warn "Possibly invalid value passed to `gridRow()` for `$justifyContent`: '#{$justifyContent}'";
+    }
+    justify-content: $justifyContent;
+  }
+
+  @if ($includeGutter) {
+    @include _gridGutterGenerator(
+      $gutter: $gutter,
+      $properties: $gutterProperties,
+      $negativeValue: $negativeGutter
+    );
+  }
+}

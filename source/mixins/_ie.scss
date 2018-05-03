@@ -1,0 +1,6 @@
+/// Wraps content in a media query that will only execute in IE 10 and 11.
+@mixin ieOnly {
+  @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    @content;
+  }
+}

@@ -1,0 +1,9 @@
+@mixin conditionalMq($breakpoint: null) {
+  @if (not isNull($breakpoint)) {
+    @include mq($from: $breakpoint) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

@@ -1,0 +1,36 @@
+// Changing this will prevent grid size classes from being generated!
+/// @access private
+$_gridGeneratedSizes: false !default;
+/// @access private
+$_gridGeneratedSizesList: () !default;
+
+/// Generates fractional, breakpoint based classes containing flex basis for flex based grids.
+@mixin generateGridSizes(
+  $breakpoints: $gridBreakpoints,
+  $classBase: map_get($gridClassBases, size),
+  $denominators: $gridDenominators,
+  $ignoreGenerated: false
+) {
+  @if (not $_gridGeneratedSizes or $ignoreGenerated or null == index($_gridGeneratedSizesList, $classBase)) {
+    $_gridGeneratedSizes: true !global;
+    $_gridGeneratedSizesList: append($_gridGeneratedSizesList, $classBase) !global;
+
+    @each $breakpoint in $breakpoints {
+      $bp: if(isNull($breakpoint), '', \@#{$breakpoint});
+
+      @include conditionalMq($breakpoint) {
+        @each $a in $denominators {
+          @for $b from 1 through $a {
+            .#{$classBase}-#{$b}\/#{$a}#{$bp} {
+              flex-basis: ($b/$a) * 100%;
+
+              @include ieOnly {
+                flex-basis: calc(#{($b/$a) * 100%} - #{$gridGutter});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

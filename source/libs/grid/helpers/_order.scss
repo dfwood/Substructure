@@ -1,0 +1,30 @@
+// Changing this will prevent grid order classes from being generated!
+/// @access private
+$_gridGeneratedOrder: false !default;
+/// @access private
+$_gridGeneratedOrderList: () !default;
+
+/// Generates grid order properties for flex based grids.
+@mixin generateGridOrder(
+  $breakpoints: $gridBreakpoints,
+  $classBase: map_get($gridClassBases, order),
+  $maxOrder: $gridMaxColumns,
+  $ignoreGenerated: false
+) {
+  @if (not $_gridGeneratedOrder or $ignoreGenerated or null == index($_gridGeneratedOrderList, $classBase)) {
+    $_gridGeneratedOrder: true !global;
+    $_gridGeneratedOrderList: append($_gridGeneratedOrderList, $classBase) !global;
+
+    @each $breakpoint in $breakpoints {
+      $bp: if(isNull($breakpoint), '', \@#{$breakpoint});
+
+      @include conditionalMq($breakpoint) {
+        @for $a from 0 through $maxOrder {
+          .#{$classBase}-#{$a}#{$bp} {
+            order: $a;
+          }
+        }
+      }
+    }
+  }
+}

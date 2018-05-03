@@ -1,0 +1,16 @@
+// Generic colors.
+$black: #000000;
+$pseudo-black: #333333;
+$white: #ffffff;
+
+// Custom colors.
+
+// Non-color named colors.
+$body-bg: $white;
+$bodyFontColor: $pseudo-black;
+
+// Wrapping keys in quotes seems redundant, but failure to do so causes issues when minifying built styles.
+// This can be used to loop through all custom colors to generate classes on the fly.
+$colorsMap: (
+  "black": $black,
+);

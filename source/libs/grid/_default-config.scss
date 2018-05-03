@@ -1,0 +1,49 @@
+// Default values. Should be edited in the main config, not here!
+$gridGutter: 30px !default;
+$gridMaxColumns: 12 !default;
+$gridMaxWidth: 1440px !default;
+$gridBreakpoints: (null) !default;
+$gridDenominators: (2, 3, 4, 5, $gridMaxColumns) !default;
+$gridGenerateClasses: true !default;
+
+$gridGutterProperties: () !default;
+$gridGutterProperties: map_merge((
+  grid: padding-left padding-right,
+  row: margin-left margin-right,
+  column: padding-left padding-right,
+), $gridGutterProperties);
+
+$gridClassBases: () !default;
+$gridClassBases: map_merge((
+  grid: grid,
+  gridRow: row,
+  gridColumn: col,
+  order: order,
+  offset: offset,
+  size: col,
+), $gridClassBases);
+
+$gridRowOptions: () !default;
+$gridRowOptions: map_merge((
+  direction: row,
+  wrap: wrap,
+  alignContent: stretch,
+  alignItems: stretch,
+  justifyContent: flex-start,
+  gutter: $gridGutter,
+  gutterProperties: map_get($gridGutterProperties, row),
+  includeGutter: true,
+  negativeGutter: true
+), $gridRowOptions);
+
+$gridColumnOptions: () !default;
+$gridColumnOptions: map_merge((
+  basis: 100%,
+  grow: 0,
+  shrink: 0,
+  alignSelf: null,
+  order: null,
+  gutter: $gridGutter,
+  gutterProperties: map_get($gridGutterProperties, column),
+  includeGutter: true,
+), $gridColumnOptions);

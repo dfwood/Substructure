@@ -1,0 +1,14 @@
+/// Global fixes, applies to all elements.
+/// 1. Fix box sizing to an arguably better standard.
+/// 2. Resolve flexbox display bugs in some browsers.
+* {
+  box-sizing: border-box; /* 1 */
+  min-height: 0; /* 2 */
+  min-width: 0; /* 2 */
+}
+
+// Fix image width overflow issues.
+img {
+  height: auto;
+  max-width: 100%;
+}

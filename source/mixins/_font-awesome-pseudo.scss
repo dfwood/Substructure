@@ -1,0 +1,5 @@
+@mixin fontAwesomePseudo($iconVar, $faFamily) {
+  content: unquote("\"#{$iconVar}\"");
+  display: none;
+  font-family: $faFamily;
+}

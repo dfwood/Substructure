@@ -1,0 +1,33 @@
+/// Checks if the gridGutter variable contains a gutter size for the given breakpoint.
+/// Will always return false if `$gridGutter` is not a map.
+/// @return bool
+@function gridGutterExists($breakpoint: null) {
+  @if (not variable_exists('gridGutter')) {
+    @error "'$gridGutter' variable does not exist!"
+  }
+  @if (isMap($gridGutter) and map_has_key($gridGutter, $breakpoint)) {
+    @return true;
+  }
+  @return false;
+}
+
+/// Returns the gutter size usable in left or right padding/margin
+/// for the provided breakpoint.
+/// It is recommended to use `gridGutterExists` first to ensure
+/// map key exists. (Not needed if `$gridGutter` is a number)
+/// @return number
+@function gridGutterSize($breakpoint: null) {
+  @if (not variable_exists('gridGutter')) {
+    @error "'$gridGutter' variable does not exist!"
+  }
+
+  @if (isMap($gridGutter)) {
+    @if (map_has_key($gridGutter, $breakpoint)) {
+      @return map_get($gridGutter, $breakpoint) / 2;
+    } @else {
+      @error "'$gridGutter' does not have a key '#{$breakpoint}'!";
+    }
+  } @else if (isNumber($gridGutter)) {
+    @return $gridGutter / 2;
+  }
+}

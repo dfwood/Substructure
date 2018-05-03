@@ -1,0 +1,17 @@
+// Define gutter sizing, null is default. Can define per-breakpoint (as SASS Map) or as single number.
+$gridGutter: rem-calc(25);
+
+// Maximum number of columns
+$gridMaxColumns: 12;
+
+// Maximum grid width
+$gridMaxWidth: rem-calc(1100);
+
+// Breakpoints to generate column classes for, `null` is used to generate classes not in a media query
+$gridBreakpoints: (null, xs, sm, md, lg);
+
+// This restricts the number of CSS classes generated, each number is a total number of columns used as the denominator in fractional class names.
+$gridDenominators: (2, 3, 4, 5, 6, $gridMaxColumns);
+
+// Set to false to turn off grid class generation.
+$gridGenerateClasses: true;

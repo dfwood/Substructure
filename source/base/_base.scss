@@ -1,0 +1,9 @@
+@import "~normalize.css";
+@import "normalize-add-ons";
+@import "wp";
+// Allow quick setup of Choices.js core styles.
+// @import "choices/choices"
+// Load slick carousel styles
+//@import "~slick-carousel/slick/slick";
+// We want our typography loaded last.
+@import "typography";

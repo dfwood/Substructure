@@ -1,0 +1,104 @@
+@mixin gridGenerate(
+  $breakpoints: $gridBreakpoints,
+  $classBases: $gridClassBases,
+  $denominators: $gridDenominators,
+  $gutter: $gridGutter,
+  $gutterProperties: $gridGutterProperties,
+  $maxColumns: $gridMaxColumns,
+  $maxWidth: $gridMaxWidth,
+  $rowOptions: $gridRowOptions,
+  $columnOptions: $gridColumnOptions,
+  $ignoreGenerated: false,
+  $generateHelpers: false,
+  $generateMain: true
+) {
+  @if ($classBases != $gridClassBases) {
+    $classBases: map_merge($gridClassBases, $classBases);
+  }
+
+  @if ($gutterProperties != $gridGutterProperties) {
+    $gutterProperties: map_merge($gridGutterProperties, $gutterProperties);
+  }
+
+  @if ($rowOptions != $gridRowOptions) {
+    $rowOptions: map_merge($rowOptions, (
+      gutter: $gutter,
+      gutterProperties: map_get($gutterProperties, row),
+    ));
+    $rowOptions: map_merge($gridRowOptions, $rowOptions);
+  } @else {
+    $rowOptions: map_merge($rowOptions, (
+      gutter: $gutter,
+      gutterProperties: map_get($gutterProperties, row),
+    ));
+  }
+
+  @if ($columnOptions != $gridColumnOptions) {
+    $columnOptions: map_merge($columnOptions, (
+      gutter: $gutter,
+      gutterProperties: map_get($gutterProperties, column),
+    ));
+    $columnOptions: map_merge($gridColumnOptions, $columnOptions);
+  } @else {
+    $columnOptions: map_merge($columnOptions, (
+      gutter: $gutter,
+      gutterProperties: map_get($gutterProperties, column),
+    ));
+  }
+
+  @if ($generateMain) {
+    // Generate our base grid classes
+    .#{map_get($classBases, grid)},
+    [class^="#{map_get($classBases, grid)}--"],
+    [class*=" #{map_get($classBases, grid)}--"] {
+      margin-left: auto;
+      margin-right: auto;
+      @if (not isNull($maxWidth)) {
+        @if (isNumber($maxWidth)) {
+          max-width: rem-calc($maxWidth);
+        } @else {
+          max-width: $maxWidth;
+        }
+      }
+      @include _gridGutterGenerator(
+        $gutter: $gutter,
+        $properties: map_get($gutterProperties, grid)
+      );
+    }
+
+    .#{map_get($classBases, grid)}__#{map_get($classBases, gridRow)},
+    [class^="#{map_get($classBases, grid)}__#{map_get($classBases, gridRow)}--"],
+    [class*=" #{map_get($classBases, grid)}__#{map_get($classBases, gridRow)}--"] {
+      @include gridRow($rowOptions...);
+    }
+
+    .#{map_get($classBases, grid)}__#{map_get($classBases, gridColumn)},
+    [class^="#{map_get($classBases, grid)}__#{map_get($classBases, gridColumn)}--"],
+    [class*=" #{map_get($classBases, grid)}__#{map_get($classBases, gridColumn)}--"] {
+      @include gridColumn($columnOptions...);
+    }
+  }
+
+  @if ($generateHelpers) {
+    @include generateGridOffset(
+      $breakpoints: $breakpoints,
+      $classBase: map_get($classBases, offset),
+      $denominators: $denominators,
+      $ignoreGenerated: $ignoreGenerated
+    );
+
+    @include generateGridOrder(
+      $breakpoints: $breakpoints,
+      $classBase: map_get($classBases, order),
+      $maxOrder: $maxColumns,
+      $ignoreGenerated: $ignoreGenerated
+    );
+
+    @include generateGridSizes(
+      $breakpoints: $breakpoints,
+      $classBase: map_get($classBases, size),
+      $denominators: $denominators,
+      $ignoreGenerated: $ignoreGenerated
+    );
+  }
+}

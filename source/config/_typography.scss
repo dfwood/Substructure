@@ -1,0 +1,17 @@
+// Path to font-awesome/fonts directory in node_modules, relative to root scss source directory. Path may need to be updated.
+$fa-font-path: '../../node_modules/@fortawesome/fontawesome-free-webfonts/webfonts' !default;
+// Include the FontAwesome variables file. Path may need to be updated.
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/variables";
+
+// Custom font face names
+$helveticaFont: 'Helvetica';
+
+// General font face names
+$heading-font-face: $helveticaFont, sans-serif;
+$body-font-face: $helveticaFont, sans-serif;
+
+// Font size definitions
+$sizeH1: rem-calc(50);
+$sizeH2: rem-calc(30);
+$sizeH3: rem-calc(18);
+$sizeBody: rem-calc(16);

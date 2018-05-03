@@ -1,0 +1,36 @@
+/// Generate a grid column
+@mixin gridColumn(
+  $basis: auto,
+  $grow: 0,
+  $shrink: 1,
+  $alignSelf: null,
+  $order: null,
+  $gutter: $gridGutter, // Map or number
+  $gutterProperties: padding-left padding-right, // List
+  $breakpoint: null,
+  $includeGutter: true
+) {
+  @include conditionalMq($breakpoint) {
+    @if (not isNull($alignSelf)) {
+      @if (null == index((auto, flex-start, flex-end, center, baseline, stretch), $alignSelf)) {
+        @warn "Possibly invalid value passed to `gridColumn()` for `$alignSelf`: '#{$alignSelf}'";
+      }
+      align-self: $alignSelf;
+    }
+
+    flex-basis: $basis;
+    flex-grow: $grow;
+    flex-shrink: $shrink;
+
+    @if (not isNull($order)) {
+      order: $order;
+    }
+
+    @if ($includeGutter) {
+      @include _gridGutterGenerator(
+        $gutter: $gutter,
+        $properties: $gutterProperties
+      );
+    }
+  }
+}
